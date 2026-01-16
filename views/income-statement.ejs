@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Income Statement</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner container">
+      <div class="brand">
+        <span class="logo"></span>
+        <div>
+          <div class="brand-title">Easy Accounts</div>
+          <div class="brand-sub muted">Income Statement</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="chip"><%= user?.username || 'User' %></span>
+        <a class="btn btn-ghost" href="/ledger/dashboard">Back</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <div class="row space-between">
+        <h2>Income Statement</h2>
+        <span class="muted">Purchases included in expenses. Drawings shown separately.</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Total Income</div>
+          <div class="stat-value"><%= Number(totalIncome).toFixed(2) %></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Total Purchases</div>
+          <div class="stat-value"><%= Number(totalPurchases).toFixed(2) %></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Total Expenses</div>
+          <div class="stat-value"><%= Number(totalExpenses).toFixed(2) %></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Net Profit</div>
+          <div class="stat-value <%= netProfit >= 0 ? 'profit' : 'loss' %>">
+            <%= Number(netProfit).toFixed(2) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row space-between">
+        <h3>Drawings (Not included in Profit)</h3>
+        <span class="chip">Total: <%= Number(totalDrawings).toFixed(2) %></span>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Entries</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th class="right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (!entries || entries.length === 0) { %>
+              <tr>
+                <td colspan="4" class="muted">No entries found.</td>
+              </tr>
+            <% } else { %>
+              <% entries.forEach(e => { %>
+                <tr>
+                  <td><%= new Date(e.date).toLocaleString() %></td>
+                  <td><span class="pill pill-<%= e.type %>"><%= e.type %></span></td>
+                  <td><%= e.description %></td>
+                  <td class="right"><%= Number(e.amount).toFixed(2) %></td>
+                </tr>
+              <% }) %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
+
