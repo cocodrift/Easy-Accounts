@@ -30,7 +30,7 @@ app.use(
 )
 
 app.get('/', (req, res) => {
-  if (req.session?.user?.id) return res.redirect('/dashboard')
+  if (req.session?.user?.id) return res.redirect('/ledger/dashboard')
   res.redirect('/auth/login')
 })
 
