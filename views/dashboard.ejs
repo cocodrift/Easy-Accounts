@@ -36,6 +36,12 @@
           <a class="btn" href="/ledger/income-statement">Income Statement</a>
         </div>
       </div>
+      
+       <nav>
+  <a href="/ledger/dashboard?view=today" class="<%= currentView === 'today' ? 'active' : '' %>">Today</a>
+  |
+  <a href="/ledger/dashboard?view=all" class="<%= currentView === 'all' ? 'active' : '' %>">All Entries</a>
+</nav>
 
       <div class="table-wrap">
         <table class="table">
